@@ -1,4 +1,4 @@
-// Text Structify - Config/Settings Page Script
+// Text Structify for Devin - Config/Settings Page Script
 
 const DEFAULT_PROMPT = `你是一个文本整理助手。用户会给你一段语音转写的原始文字（可能由语音输入得来），通常包含：
 - 口语化表达（语气词、重复、冗余）

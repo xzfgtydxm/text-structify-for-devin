@@ -1,4 +1,4 @@
-// Text Structify - Background Service Worker
+// Text Structify for Devin - Background Service Worker
 // LLM-only: receives text + context from content script, returns structured text
 
 const DEBUG = false;

@@ -1,4 +1,4 @@
-// Text Structify - Popup Script
+// Text Structify for Devin - Popup Script
 // Manages API endpoints and LLM model selection
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   elements.aboutLink.addEventListener('click', (e) => {
     e.preventDefault();
-    showToast('Text Structify v1.1 — 基于 AI-Dictation 改造', 'success');
+    showToast('Text Structify for Devin v1.1 — 基于 AI-Dictation 改造', 'success');
   });
 
   // --- Init ---
