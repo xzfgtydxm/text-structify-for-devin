@@ -1,0 +1,21 @@
+{
+  "endpoints": [
+    {
+      "name": "OpenAI",
+      "baseUrl": "https://api.openai.com/v1",
+      "apiKey": ""
+    },
+    {
+      "name": "DeepSeek",
+      "baseUrl": "https://api.deepseek.com/v1",
+      "apiKey": ""
+    },
+    {
+      "name": "Groq",
+      "baseUrl": "https://api.groq.com/openai/v1",
+      "apiKey": ""
+    }
+  ],
+  "activeEndpoint": "OpenAI",
+  "model": ""
+}

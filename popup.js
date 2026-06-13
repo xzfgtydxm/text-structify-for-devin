@@ -29,26 +29,54 @@ document.addEventListener('DOMContentLoaded', async () => {
   let promptTemplates = [];
   let activeTemplateId = '';
 
+  async function loadConfigFile() {
+    try {
+      const url = chrome.runtime.getURL('config.default.json');
+      const resp = await fetch(url);
+      if (!resp.ok) return null;
+      return await resp.json();
+    } catch (e) {
+      return null;
+    }
+  }
+
   async function loadState() {
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
       chrome.storage.sync.get([
         'endpoints', 'activeEndpointId', 'selectedLlmModel',
-        'promptTemplates', 'activeTemplateId'
-      ], (result) => {
+        'promptTemplates', 'activeTemplateId',
+        'configLoaded'
+      ], async (result) => {
         endpoints = result.endpoints || [];
         activeEndpointId = result.activeEndpointId || '';
         selectedLlmModel = result.selectedLlmModel || '';
         promptTemplates = result.promptTemplates || [];
         activeTemplateId = result.activeTemplateId || '';
 
-        if (endpoints.length === 0) {
-          endpoints.push({
-            id: 'default-openai',
-            name: 'OpenAI',
-            baseUrl: 'https://api.openai.com/v1',
-            apiKey: ''
-          });
-          activeEndpointId = 'default-openai';
+        if (endpoints.length === 0 && !result.configLoaded) {
+          const config = await loadConfigFile();
+          if (config && config.endpoints && config.endpoints.length > 0) {
+            endpoints = config.endpoints.map((ep, i) => ({
+              id: 'cfg-' + i,
+              name: ep.name || ('Endpoint ' + (i + 1)),
+              baseUrl: ep.baseUrl || '',
+              apiKey: ep.apiKey || ''
+            }));
+            const activeEp = config.activeEndpoint
+              ? endpoints.find(ep => ep.name === config.activeEndpoint)
+              : null;
+            activeEndpointId = activeEp ? activeEp.id : endpoints[0].id;
+            if (config.model) selectedLlmModel = config.model;
+          } else {
+            endpoints.push({
+              id: 'default-openai',
+              name: 'OpenAI',
+              baseUrl: 'https://api.openai.com/v1',
+              apiKey: ''
+            });
+            activeEndpointId = 'default-openai';
+          }
+          chrome.storage.sync.set({ configLoaded: true });
           saveState();
         }
         if (!activeEndpointId && endpoints.length > 0) {
@@ -292,7 +320,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   elements.aboutLink.addEventListener('click', (e) => {
     e.preventDefault();
-    showToast('Text Structify for Devin v1.1 — 基于 AI-Dictation 改造', 'success');
+    showToast('Text Structify for Devin v1.2 — 基于 AI-Dictation 改造', 'success');
   });
 
   // --- Init ---
