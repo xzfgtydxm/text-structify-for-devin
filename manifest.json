@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Text Structify for Devin",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "一键用 AI 整理输入框中的文字。支持自定义 LLM API 端点，自动读取页面对话上下文。",
   "minimum_chrome_version": "116",
   "permissions": [

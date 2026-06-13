@@ -27,10 +27,11 @@
 
 1. 前往 [Releases 页面](https://github.com/xzfgtydxm/text-structify-for-devin/releases) 下载最新版本的 `.zip` 文件
 2. 解压下载的压缩包到一个固定目录
-3. 打开 Chrome 浏览器，地址栏输入 `chrome://extensions/`
-4. 开启右上角的 **开发者模式**
-5. 点击 **加载已解压的扩展程序**，选择解压后的目录
-6. 完成！你会在浏览器工具栏看到 Text Structify for Devin 图标
+3. **编辑 `config.default.json`**，填入你的 API Key（见下方说明）
+4. 打开 Chrome 浏览器，地址栏输入 `chrome://extensions/`
+5. 开启右上角的 **开发者模式**
+6. 点击 **加载已解压的扩展程序**，选择解压后的目录
+7. 完成！插件会自动读取你的配置，开箱即用
 
 ### 从源码安装
 
@@ -38,7 +39,40 @@
 git clone https://github.com/xzfgtydxm/text-structify-for-devin.git
 ```
 
-然后按照上述步骤 3-6 操作，在第 5 步选择克隆下来的项目目录即可。
+然后按照上述步骤 3-7 操作，在第 6 步选择克隆下来的项目目录即可。
+
+---
+
+## 配置文件（开箱即用）
+
+插件目录下有一个 `config.default.json` 文件，安装前编辑它即可预配置 API 端点：
+
+```json
+{
+  "endpoints": [
+    {
+      "name": "OpenAI",
+      "baseUrl": "https://api.openai.com/v1",
+      "apiKey": "sk-你的密钥"
+    },
+    {
+      "name": "DeepSeek",
+      "baseUrl": "https://api.deepseek.com/v1",
+      "apiKey": ""
+    }
+  ],
+  "activeEndpoint": "OpenAI",
+  "model": "gpt-4o"
+}
+```
+
+| 字段 | 说明 |
+|------|------|
+| `endpoints` | API 端点列表，每个包含 `name`、`baseUrl`、`apiKey` |
+| `activeEndpoint` | 默认使用的端点名称（对应 `name` 字段） |
+| `model` | 默认使用的模型名（可选，留空则手动选择） |
+
+> **提示：** 只需填好你常用的那个端点的 `apiKey`，安装后就能直接使用，无需在界面中手动配置。你也可以之后在插件弹出面板中随时修改。
 
 ---
 
@@ -46,7 +80,9 @@ git clone https://github.com/xzfgtydxm/text-structify-for-devin.git
 
 ### 1. 配置 API
 
-点击浏览器工具栏的 Text Structify for Devin 图标，在弹出面板中：
+**方式 A（推荐）：** 安装前编辑 `config.default.json`，填入 API Key，加载后自动配置。
+
+**方式 B：** 点击浏览器工具栏的 Text Structify for Devin 图标，在弹出面板中手动配置：
 
 1. 添加你的 API 端点（Base URL + API Key）
 2. 点击 🔄 按钮获取可用模型列表
@@ -107,15 +143,16 @@ git clone https://github.com/xzfgtydxm/text-structify-for-devin.git
 
 ```
 text-structify-for-devin/
-├── manifest.json      # Chrome 扩展清单文件 (Manifest V3)
-├── background.js      # Service Worker - LLM API 调用
-├── content.js         # Content Script - 页面注入 & 上下文提取
-├── popup.html         # 弹出面板 UI
-├── popup.js           # 弹出面板逻辑
-├── config.html        # 高级设置页面
-├── config.js          # 高级设置逻辑
-├── styles.css         # 高级设置样式
-├── icons/             # 扩展图标
+├── config.default.json # 预配置文件（填入 API Key 即可开箱即用）
+├── manifest.json       # Chrome 扩展清单文件 (Manifest V3)
+├── background.js       # Service Worker - LLM API 调用
+├── content.js          # Content Script - 页面注入 & 上下文提取
+├── popup.html          # 弹出面板 UI
+├── popup.js            # 弹出面板逻辑
+├── config.html         # 高级设置页面
+├── config.js           # 高级设置逻辑
+├── styles.css          # 高级设置样式
+├── icons/              # 扩展图标
 │   ├── icon16.png
 │   ├── icon48.png
 │   ├── icon128.png
