@@ -135,8 +135,7 @@ async function structifyText(rawText, conversationContext, appName, currentUrl) 
   const storage = await chrome.storage.sync.get([
     'endpoints', 'activeEndpointId', 'selectedLlmModel',
     'promptTemplates', 'activeTemplateId',
-    'customSystemPrompt', // legacy fallback
-    'fullName', 'businessName', 'customSpellings'
+    'customSystemPrompt' // legacy fallback
   ]);
 
   const endpoints = storage.endpoints || [];
@@ -164,16 +163,6 @@ async function structifyText(rawText, conversationContext, appName, currentUrl) 
     systemPrompt = activeTemplate.prompt || SYSTEM_PROMPT;
   } else if (storage.customSystemPrompt) {
     systemPrompt = storage.customSystemPrompt;
-  }
-
-  // Add personalization
-  const personalizations = [];
-  if (storage.fullName) personalizations.push('用户姓名: ' + storage.fullName);
-  if (storage.businessName) personalizations.push('公司名称: ' + storage.businessName);
-  if (storage.customSpellings) personalizations.push('专有名词: ' + storage.customSpellings);
-
-  if (personalizations.length > 0) {
-    systemPrompt += '\n\n个性化信息（在相关时使用）：\n' + personalizations.map(p => '- ' + p).join('\n');
   }
 
   // Add app context
