@@ -1,4 +1,4 @@
-// Text Structify - Content Script
+// Text Structify for Devin - Content Script
 // Injects "整理" buttons next to text inputs, extracts page conversation context
 
 // Track injected elements: Maps inputEl -> btn element

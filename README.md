@@ -1,21 +1,22 @@
-# Text Structify ✨
+# Text Structify for Devin ✨
 
-> **一键用 AI 整理输入框中的文字** — Chrome 浏览器扩展
+> **一键用 AI 整理输入框中的文字** — 专为 [Devin](https://devin.ai) 打造的 Chrome 浏览器扩展，同时支持 ChatGPT、Claude 等平台
 
-你用网页自带的语音输入（或手动输入）写好文字后，点击输入框旁边的 **✨ 整理** 按钮，AI 会自动读取页面对话上下文，将口语化、零散的文字整理成结构化内容，直接替换回输入框。
+在 Devin 中使用语音输入后，文字往往口语化、缺乏结构。点击输入框旁边的 **✨ 整理** 按钮，AI 会自动读取 Devin 的对话上下文，将零散的语音转写内容整理成清晰、结构化的指令，直接替换回输入框。
+
+**适用场景：** 你在 Devin 中用语音输入了一段话，但转出来的文字乱糟糟的 → 点击 ✨ → 瞬间变成条理清晰的文字。
 
 ---
 
 ## 功能特性
 
-- **🎙️ 不需要自带 STT** — 使用网页原有的语音输入功能（如 Devin、ChatGPT 等自带的录音按钮），本插件专注于后续整理
+- **🎙️ 不需要自带 STT** — 使用 Devin / ChatGPT 等网页自带的语音输入功能，本插件专注于后续文字整理
 - **✨ 一键整理** — 在每个输入框旁自动注入 ✨ 整理按钮，点击即可将口语化文字变成结构化表达
-- **🧠 上下文感知** — 自动读取页面上的对话历史（如 Devin 的上一条回复、ChatGPT 的聊天记录），辅助 AI 更精准地理解和整理
+- **🧠 上下文感知** — 自动读取 Devin 的回复内容和页面对话历史，辅助 AI 更精准地理解你在说什么
 - **🔌 自定义 API 端点** — 支持任何 OpenAI 兼容的 API（OpenAI / DeepSeek / Groq / Ollama 等）
 - **📋 多端点管理** — 配置多个 API 端点，随时切换
 - **📝 提示词模板** — 内置 "默认整理"、"学术模式"、"会议纪要" 等多种模板，也支持自定义
-- **👤 个性化设置** — 配置姓名、公司名、专有名词，提高整理准确性
-- **⌨️ 快捷键支持** — `Ctrl+Shift+1`（Mac: `Cmd+Shift+1`）直接整理当前输入框
+- **⌨️ 快捷键支持** — 可在 `chrome://extensions/shortcuts` 自行配置快捷键
 - **🔒 隐私安全** — 所有处理通过你自己的 API 完成，不收集任何数据
 
 ---
@@ -24,17 +25,17 @@
 
 ### 从 Release 下载安装（推荐）
 
-1. 前往 [Releases 页面](https://github.com/xzfgtydxm/text-structify/releases) 下载最新版本的 `.zip` 文件
+1. 前往 [Releases 页面](https://github.com/xzfgtydxm/text-structify-for-devin/releases) 下载最新版本的 `.zip` 文件
 2. 解压下载的压缩包到一个固定目录
 3. 打开 Chrome 浏览器，地址栏输入 `chrome://extensions/`
 4. 开启右上角的 **开发者模式**
 5. 点击 **加载已解压的扩展程序**，选择解压后的目录
-6. 完成！你会在浏览器工具栏看到 Text Structify 图标
+6. 完成！你会在浏览器工具栏看到 Text Structify for Devin 图标
 
 ### 从源码安装
 
 ```bash
-git clone https://github.com/xzfgtydxm/text-structify.git
+git clone https://github.com/xzfgtydxm/text-structify-for-devin.git
 ```
 
 然后按照上述步骤 3-6 操作，在第 5 步选择克隆下来的项目目录即可。
@@ -45,7 +46,7 @@ git clone https://github.com/xzfgtydxm/text-structify.git
 
 ### 1. 配置 API
 
-点击浏览器工具栏的 Text Structify 图标，在弹出面板中：
+点击浏览器工具栏的 Text Structify for Devin 图标，在弹出面板中：
 
 1. 添加你的 API 端点（Base URL + API Key）
 2. 点击 🔄 按钮获取可用模型列表
@@ -53,8 +54,8 @@ git clone https://github.com/xzfgtydxm/text-structify.git
 
 ### 2. 整理文字
 
-1. 在任意网页的输入框中输入文字（手动输入或使用网页自带的语音输入）
-2. 点击输入框旁边自动出现的 **✨ 整理** 按钮，或按下快捷键 `Ctrl+Shift+1`
+1. 在 Devin（或其他网页）的输入框中输入文字（手动输入或使用语音输入）
+2. 点击输入框旁边自动出现的 **✨ 整理** 按钮（或使用自定义快捷键）
 3. AI 自动整理，整理后的文字直接替换回输入框
 
 ### 3. 高级设置（可选）
@@ -62,8 +63,6 @@ git clone https://github.com/xzfgtydxm/text-structify.git
 在插件弹出面板点击 **⚙️ 高级设置** 可以：
 
 - 管理提示词模板（新增 / 编辑 / 删除）
-- 设置个人信息（姓名、公司名）
-- 添加专有名词（确保整理时不被修改）
 
 ---
 
@@ -73,7 +72,7 @@ git clone https://github.com/xzfgtydxm/text-structify.git
 
 | 平台 | 支持情况 |
 |------|---------|
-| **Devin** | ✅ 读取 Devin 的回复内容 |
+| **Devin** | ✅ 读取 Devin 的回复内容（主要适配平台） |
 | **ChatGPT** | ✅ 读取对话历史 |
 | **Claude** | ✅ 读取对话历史 |
 | **通用网页** | ✅ 自动检测聊天容器 |
@@ -107,7 +106,7 @@ git clone https://github.com/xzfgtydxm/text-structify.git
 ## 项目结构
 
 ```
-text-structify/
+text-structify-for-devin/
 ├── manifest.json      # Chrome 扩展清单文件 (Manifest V3)
 ├── background.js      # Service Worker - LLM API 调用
 ├── content.js         # Content Script - 页面注入 & 上下文提取

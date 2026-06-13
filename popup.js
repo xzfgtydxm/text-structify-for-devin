@@ -1,4 +1,4 @@
-// Text Structify - Popup Script
+// Text Structify for Devin - Popup Script
 // Manages API endpoints and LLM model selection
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -292,12 +292,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   elements.aboutLink.addEventListener('click', (e) => {
     e.preventDefault();
-    showToast('Text Structify v1.0 — 基于 AI-Dictation 改造', 'success');
+    showToast('Text Structify for Devin v1.1 — 基于 AI-Dictation 改造', 'success');
   });
 
   // --- Init ---
   await loadState();
   renderEndpoints();
+
+  // Display configured shortcut
+  chrome.commands.getAll((commands) => {
+    const cmd = commands.find(c => c.name === 'structify-text');
+    const badge = document.getElementById('shortcut-badge');
+    if (cmd && cmd.shortcut) {
+      badge.textContent = cmd.shortcut;
+    } else {
+      badge.textContent = '未设置快捷键';
+    }
+  });
 
   // If active endpoint has a key, auto-fetch models
   const ep = endpoints.find(x => x.id === activeEndpointId);

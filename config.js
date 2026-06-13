@@ -1,4 +1,4 @@
-// Text Structify - Config/Settings Page Script
+// Text Structify for Devin - Config/Settings Page Script
 
 const DEFAULT_PROMPT = `你是一个文本整理助手。用户会给你一段语音转写的原始文字（可能由语音输入得来），通常包含：
 - 口语化表达（语气词、重复、冗余）
@@ -78,10 +78,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     templatePrompt: document.getElementById('template-prompt'),
     saveTemplateBtn: document.getElementById('save-template-btn'),
     cancelTemplateBtn: document.getElementById('cancel-template-btn'),
-    fullNameInput: document.getElementById('full-name'),
-    businessNameInput: document.getElementById('business-name'),
-    customSpellingsTextarea: document.getElementById('custom-spellings'),
-    saveBtn: document.getElementById('save-btn'),
     saveStatus: document.getElementById('save-status'),
     debugBtn: document.getElementById('debug-btn')
   };
@@ -93,7 +89,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     return new Promise((resolve) => {
       chrome.storage.sync.get([
         'promptTemplates', 'activeTemplateId',
-        'fullName', 'businessName', 'customSpellings',
         'customSystemPrompt' // legacy: migrate if exists
       ], (result) => {
         if (result.promptTemplates && result.promptTemplates.length > 0) {
@@ -108,10 +103,6 @@ document.addEventListener('DOMContentLoaded', async () => {
           templates = JSON.parse(JSON.stringify(DEFAULT_TEMPLATES));
         }
         activeTemplateId = result.activeTemplateId || templates[0].id;
-
-        if (result.fullName) elements.fullNameInput.value = result.fullName;
-        if (result.businessName) elements.businessNameInput.value = result.businessName;
-        if (result.customSpellings) elements.customSpellingsTextarea.value = result.customSpellings;
         resolve();
       });
     });
@@ -241,19 +232,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     saveTemplates();
     renderTemplates();
     showStatus('模板已保存', 'success');
-  });
-
-  // Save personalization settings
-  elements.saveBtn.addEventListener('click', () => {
-    const settings = {
-      fullName: elements.fullNameInput.value.trim(),
-      businessName: elements.businessNameInput.value.trim(),
-      customSpellings: elements.customSpellingsTextarea.value.trim()
-    };
-
-    chrome.storage.sync.set(settings, () => {
-      showStatus('设置已保存', 'success');
-    });
   });
 
   // Debug button
