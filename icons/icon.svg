@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Background with gradient -->
+  <defs>
+    <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="micGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ee5a24;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="64" fill="url(#bgGradient)"/>
+  
+  <!-- Microphone body -->
+  <rect x="52" y="28" width="24" height="40" rx="12" ry="12" fill="url(#micGradient)" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Microphone grille -->
+  <circle cx="58" cy="38" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="64" cy="38" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="70" cy="38" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="58" cy="44" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="64" cy="44" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="70" cy="44" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="58" cy="50" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="64" cy="50" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="70" cy="50" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="58" cy="56" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="64" cy="56" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="70" cy="56" r="1.5" fill="#ffffff" opacity="0.9"/>
+  
+  <!-- Microphone stand -->
+  <path d="M 48 68 Q 48 76 52 80 L 76 80 Q 80 76 80 68" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  <rect x="58" y="80" width="12" height="6" fill="#ffffff"/>
+  <rect x="48" y="86" width="32" height="4" rx="2" fill="#ffffff"/>
+  
+  <!-- Sound waves -->
+  <path d="M 88 44 Q 94 50 94 58 Q 94 66 88 72" fill="none" stroke="#ffd700" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 96 38 Q 104 46 104 58 Q 104 70 96 78" fill="none" stroke="#ffd700" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- AI spark -->
+  <polygon points="84,24 86,30 92,30 87,34 89,40 84,36 79,40 81,34 76,30 82,30" fill="#ffd700"/>
+</svg>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Text Structify - 高级设置</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="config-container">
+    <h1>✨ Text Structify 高级设置</h1>
+    
+    <div class="config-section">
+      <h2>提示词模板管理</h2>
+      <p>创建不同的提示词模板，用于不同的整理风格。在插件弹窗中可快速切换当前模板。</p>
+      
+      <div class="form-group">
+        <label>当前活动模板:</label>
+        <select id="active-template"></select>
+      </div>
+      
+      <div id="template-list" class="template-list"></div>
+      
+      <div style="margin-top: 12px;">
+        <button id="add-template-btn" class="save-btn" style="background:#667eea; font-size:14px; padding:8px 16px;">+ 添加新模板</button>
+      </div>
+      
+      <div id="template-editor" class="template-editor" style="display:none; margin-top:16px; padding:16px; background:#fff; border:1px solid #ddd; border-radius:8px;">
+        <input type="hidden" id="edit-template-id" value="">
+        <div class="form-group">
+          <label for="template-name">模板名称:</label>
+          <input type="text" id="template-name" placeholder="例：学术模式 / 会议纪要 / 代码审查">
+        </div>
+        <div class="form-group">
+          <label for="template-prompt">系统提示词:</label>
+          <textarea id="template-prompt" rows="10" placeholder="例：你是一个文本整理助手，请将语音转写的文字整理成结构化的内容..."></textarea>
+          <small>提示：提示词会影响 AI 如何整理你的文字。不同模板可针对不同场景优化。</small>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button id="save-template-btn" class="save-btn" style="font-size:14px; padding:8px 16px;">保存模板</button>
+          <button id="cancel-template-btn" class="reset-btn">取消</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="config-section">
+      <h2>个性化设置</h2>
+      <p>添加个人信息以提高整理的准确性。所有字段均为可选。</p>
+      
+      <div class="form-group">
+        <label for="full-name">姓名:</label>
+        <input type="text" id="full-name" placeholder="例：张三" />
+        <small>你的姓名，用于准确拼写</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="business-name">公司/组织名称:</label>
+        <input type="text" id="business-name" placeholder="例：ABC 科技有限公司" />
+      </div>
+      
+      <div class="form-group">
+        <label for="custom-spellings">专有名词 & 自定义拼写:</label>
+        <textarea id="custom-spellings" rows="3" placeholder="例：DeepSeek, Kubernetes, 张三丰..."></textarea>
+        <small>需要准确保留的专有名词（每行一个或逗号分隔）</small>
+      </div>
+    </div>
+    
+    <div class="config-section">
+      <button id="save-btn" class="save-btn">保存设置</button>
+      <div id="save-status" class="save-status"></div>
+    </div>
+    
+    <div class="config-section">
+      <h2>快捷键</h2>
+      <p>当前快捷键: <strong>Ctrl+Shift+1</strong>（整理当前输入框的文字）</p>
+      <p>修改快捷键: 前往 <code>chrome://extensions/shortcuts</code></p>
+    </div>
+    
+    <div class="config-section">
+      <h2>使用方法</h2>
+      <ol>
+        <li>点击插件图标 → 配置 API 端点（Base URL + API Key）→ 选择 LLM 模型</li>
+        <li>在网页上用自带的语音输入（或手动输入）写好文字</li>
+        <li>点击输入框旁边的 <strong>✨ 整理</strong> 按钮，或按 <strong>Ctrl+Shift+1</strong></li>
+        <li>AI 自动读取页面对话上下文，将文字整理成结构化内容</li>
+        <li>整理后的文字直接替换回输入框</li>
+      </ol>
+    </div>
+    
+    <div class="config-section">
+      <h2>支持的 API 端点</h2>
+      <ul>
+        <li><strong>OpenAI</strong> — api.openai.com</li>
+        <li><strong>DeepSeek</strong> — api.deepseek.com</li>
+        <li><strong>Groq</strong> — api.groq.com（免费额度，速度快）</li>
+        <li><strong>Ollama</strong> — localhost:11434（本地模型）</li>
+        <li><strong>任何 OpenAI 兼容 API</strong> — 自定义 Base URL</li>
+      </ul>
+    </div>
+    
+    <div class="config-section">
+      <h2>关于</h2>
+      <p><strong>版本:</strong> 1.0.0</p>
+      <p><strong>基于:</strong> <a href="https://github.com/peterkrueck/AI-Dictation" target="_blank">AI-Dictation</a> 改造</p>
+      <p><strong>隐私:</strong> 所有处理通过你自己的 API 完成，不收集任何数据。</p>
+    </div>
+    
+    <div class="config-section">
+      <h2>调试工具</h2>
+      <button id="debug-btn" class="debug-btn">🐛 查看调试日志</button>
+      <p><small>点击后日志会输出到浏览器控制台 (F12)</small></p>
+    </div>
+  </div>
+  
+  <script src="config.js"></script>
+</body>
+</html>

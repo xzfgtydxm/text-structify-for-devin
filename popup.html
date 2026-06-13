@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 400px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+    }
+    .container { padding: 16px; }
+    h2 {
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section {
+      background: #16213e;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: 12px;
+      color: #8892b0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      color: #8892b0;
+      margin-bottom: 4px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #2a2a4a;
+      border-radius: 6px;
+      background: #0f3460;
+      color: #e0e0e0;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus { border-color: #667eea; }
+    input::placeholder { color: #555; }
+    .form-row { margin-bottom: 8px; }
+    .form-row:last-child { margin-bottom: 0; }
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-sm {
+      padding: 4px 10px;
+      font-size: 11px;
+      border-radius: 4px;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #667eea;
+      color: #667eea;
+    }
+    .btn-outline:hover { background: #667eea; color: white; }
+    .btn-danger {
+      background: transparent;
+      border: 1px solid #ff4444;
+      color: #ff4444;
+    }
+    .btn-danger:hover { background: #ff4444; color: white; }
+    .btn-fetch {
+      background: #0f3460;
+      border: 1px solid #2a2a4a;
+      color: #8892b0;
+      margin-top: 4px;
+    }
+    .btn-fetch:hover { border-color: #667eea; color: #667eea; }
+    .endpoint-list { max-height: 120px; overflow-y: auto; }
+    .endpoint-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 13px;
+    }
+    .endpoint-item:hover { background: #0f3460; }
+    .endpoint-item.active {
+      background: #0f3460;
+      border-left: 3px solid #667eea;
+    }
+    .endpoint-item .ep-name {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .endpoint-item .ep-status {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .ep-status.online { background: #44bb44; }
+    .ep-status.offline { background: #ff4444; }
+    .ep-status.unknown { background: #888; }
+    .endpoint-item .ep-actions { display: flex; gap: 4px; }
+    .endpoint-item .ep-actions button {
+      background: none; border: none;
+      color: #8892b0; cursor: pointer;
+      font-size: 14px; padding: 2px;
+    }
+    .endpoint-item .ep-actions button:hover { color: #667eea; }
+    .add-endpoint-form {
+      display: none;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #2a2a4a;
+    }
+    .add-endpoint-form.show { display: block; }
+    .inline-btns { display: flex; gap: 6px; margin-top: 8px; }
+    .inline-btns .btn { flex: 1; }
+    .model-select-row { display: flex; gap: 6px; align-items: flex-end; }
+    .model-select-row select { flex: 1; }
+    .model-select-row .btn { flex-shrink: 0; margin-top: 0; }
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #16213e;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .status-dot.ready { background: #44bb44; }
+    .status-dot.error { background: #ff4444; }
+    .shortcut-badge {
+      font-size: 11px;
+      background: #0f3460;
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: #8892b0;
+    }
+    .info-box {
+      background: #0f3460;
+      border: 1px solid #2a2a4a;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 12px;
+      color: #8892b0;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .info-box strong { color: #e0e0e0; }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+    .footer-links a { color: #8892b0; text-decoration: none; }
+    .footer-links a:hover { color: #667eea; }
+    .toast {
+      display: none;
+      position: fixed;
+      bottom: 12px; left: 12px; right: 12px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      z-index: 999;
+      text-align: center;
+    }
+    .toast.success { background: #1b5e20; color: #a5d6a7; }
+    .toast.error { background: #b71c1c; color: #ef9a9a; }
+    .toast.show { display: block; animation: fadeIn 0.2s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>✨ Text Structify</h2>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div id="status-dot" class="status-dot ready"></div>
+      <span id="status-text">就绪</span>
+      <span style="flex:1"></span>
+      <span class="shortcut-badge">Ctrl+Shift+1</span>
+    </div>
+
+    <!-- How it works -->
+    <div class="info-box">
+      <strong>使用方法：</strong><br>
+      1. 用网页自带的语音输入（或手动输入）在输入框中写好文字<br>
+      2. 点击输入框旁边的 <strong>✨ 整理</strong> 按钮，或按 <strong>Ctrl+Shift+1</strong><br>
+      3. AI 会自动读取页面对话上下文，将文字整理成结构化内容<br>
+      4. 整理后的文字会直接替换回输入框
+    </div>
+
+    <!-- Template Selection -->
+    <div class="section">
+      <div class="section-title">整理模式</div>
+      <div class="form-row">
+        <label>当前提示词模板</label>
+        <select id="active-template-select"></select>
+      </div>
+    </div>
+
+    <!-- LLM Model Selection -->
+    <div class="section">
+      <div class="section-title">当前端点 & 模型</div>
+      <div class="form-row">
+        <label>活动端点</label>
+        <select id="active-endpoint"></select>
+      </div>
+      <div class="form-row">
+        <label>LLM 模型（文本结构化）</label>
+        <div class="model-select-row">
+          <select id="llm-model">
+            <option value="">加载中...</option>
+          </select>
+          <button class="btn btn-sm btn-fetch" id="fetch-models-btn" title="获取可用模型">🔄</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Endpoint Management -->
+    <div class="section">
+      <div class="section-title">
+        API 端点列表
+        <button class="btn btn-sm btn-outline" id="add-endpoint-btn">+ 添加</button>
+      </div>
+      <div class="endpoint-list" id="endpoint-list"></div>
+
+      <div class="add-endpoint-form" id="endpoint-form">
+        <input type="hidden" id="edit-endpoint-id" value="">
+        <div class="form-row">
+          <label>端点名称</label>
+          <input type="text" id="ep-name" placeholder="例：DeepSeek / OpenAI / 本地 Ollama">
+        </div>
+        <div class="form-row">
+          <label>Base URL</label>
+          <input type="text" id="ep-url" placeholder="https://api.openai.com/v1">
+        </div>
+        <div class="form-row">
+          <label>API Key</label>
+          <input type="password" id="ep-key" placeholder="sk-...">
+        </div>
+        <div class="inline-btns">
+          <button class="btn btn-sm btn-outline" id="save-endpoint-btn">保存</button>
+          <button class="btn btn-sm btn-danger" id="cancel-endpoint-btn">取消</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-links">
+      <a href="#" id="settings-link">⚙️ 高级设置</a>
+      <span style="color:#333">|</span>
+      <a href="#" id="about-link">关于</a>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="popup.js"></script>
+</body>
+</html>

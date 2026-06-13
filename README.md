@@ -1,0 +1,146 @@
+# Text Structify ✨
+
+> **一键用 AI 整理输入框中的文字** — Chrome 浏览器扩展
+
+你用网页自带的语音输入（或手动输入）写好文字后，点击输入框旁边的 **✨ 整理** 按钮，AI 会自动读取页面对话上下文，将口语化、零散的文字整理成结构化内容，直接替换回输入框。
+
+---
+
+## 功能特性
+
+- **🎙️ 不需要自带 STT** — 使用网页原有的语音输入功能（如 Devin、ChatGPT 等自带的录音按钮），本插件专注于后续整理
+- **✨ 一键整理** — 在每个输入框旁自动注入 ✨ 整理按钮，点击即可将口语化文字变成结构化表达
+- **🧠 上下文感知** — 自动读取页面上的对话历史（如 Devin 的上一条回复、ChatGPT 的聊天记录），辅助 AI 更精准地理解和整理
+- **🔌 自定义 API 端点** — 支持任何 OpenAI 兼容的 API（OpenAI / DeepSeek / Groq / Ollama 等）
+- **📋 多端点管理** — 配置多个 API 端点，随时切换
+- **📝 提示词模板** — 内置 "默认整理"、"学术模式"、"会议纪要" 等多种模板，也支持自定义
+- **👤 个性化设置** — 配置姓名、公司名、专有名词，提高整理准确性
+- **⌨️ 快捷键支持** — `Ctrl+Shift+1`（Mac: `Cmd+Shift+1`）直接整理当前输入框
+- **🔒 隐私安全** — 所有处理通过你自己的 API 完成，不收集任何数据
+
+---
+
+## 安装方法
+
+### 从 Release 下载安装（推荐）
+
+1. 前往 [Releases 页面](https://github.com/xzfgtydxm/text-structify/releases) 下载最新版本的 `.zip` 文件
+2. 解压下载的压缩包到一个固定目录
+3. 打开 Chrome 浏览器，地址栏输入 `chrome://extensions/`
+4. 开启右上角的 **开发者模式**
+5. 点击 **加载已解压的扩展程序**，选择解压后的目录
+6. 完成！你会在浏览器工具栏看到 Text Structify 图标
+
+### 从源码安装
+
+```bash
+git clone https://github.com/xzfgtydxm/text-structify.git
+```
+
+然后按照上述步骤 3-6 操作，在第 5 步选择克隆下来的项目目录即可。
+
+---
+
+## 使用方法
+
+### 1. 配置 API
+
+点击浏览器工具栏的 Text Structify 图标，在弹出面板中：
+
+1. 添加你的 API 端点（Base URL + API Key）
+2. 点击 🔄 按钮获取可用模型列表
+3. 选择一个 LLM 模型
+
+### 2. 整理文字
+
+1. 在任意网页的输入框中输入文字（手动输入或使用网页自带的语音输入）
+2. 点击输入框旁边自动出现的 **✨ 整理** 按钮，或按下快捷键 `Ctrl+Shift+1`
+3. AI 自动整理，整理后的文字直接替换回输入框
+
+### 3. 高级设置（可选）
+
+在插件弹出面板点击 **⚙️ 高级设置** 可以：
+
+- 管理提示词模板（新增 / 编辑 / 删除）
+- 设置个人信息（姓名、公司名）
+- 添加专有名词（确保整理时不被修改）
+
+---
+
+## 上下文感知
+
+插件会自动读取页面上的对话上下文（最近 5 条消息），辅助 AI 理解你在说什么：
+
+| 平台 | 支持情况 |
+|------|---------|
+| **Devin** | ✅ 读取 Devin 的回复内容 |
+| **ChatGPT** | ✅ 读取对话历史 |
+| **Claude** | ✅ 读取对话历史 |
+| **通用网页** | ✅ 自动检测聊天容器 |
+
+---
+
+## 支持的 API 端点
+
+| 服务 | Base URL | 说明 |
+|------|----------|------|
+| OpenAI | `https://api.openai.com/v1` | GPT-4o 等 |
+| DeepSeek | `https://api.deepseek.com/v1` | 国产模型 |
+| Groq | `https://api.groq.com/openai/v1` | 免费额度，速度快 |
+| Ollama | `http://localhost:11434/v1` | 本地模型，完全离线 |
+| 其他 | 自定义 URL | 任何 OpenAI 兼容 API |
+
+---
+
+## 内置提示词模板
+
+| 模板 | 说明 |
+|------|------|
+| **默认整理** | 通用文本整理，根据应用场景自动调整语气 |
+| **学术模式** | 学术风格，正式用语，逻辑严谨 |
+| **会议纪要** | 结构化输出：议题、要点、决定事项、待办 |
+
+你也可以在高级设置中创建自定义模板。
+
+---
+
+## 项目结构
+
+```
+text-structify/
+├── manifest.json      # Chrome 扩展清单文件 (Manifest V3)
+├── background.js      # Service Worker - LLM API 调用
+├── content.js         # Content Script - 页面注入 & 上下文提取
+├── popup.html         # 弹出面板 UI
+├── popup.js           # 弹出面板逻辑
+├── config.html        # 高级设置页面
+├── config.js          # 高级设置逻辑
+├── styles.css         # 高级设置样式
+├── icons/             # 扩展图标
+│   ├── icon16.png
+│   ├── icon48.png
+│   ├── icon128.png
+│   └── icon.svg
+├── LICENSE.md         # 许可证
+└── README.md          # 本文件
+```
+
+---
+
+## 技术细节
+
+- **Manifest V3** — 使用最新的 Chrome 扩展标准
+- **最低 Chrome 版本** — 116+
+- **权限** — `activeTab`、`storage`、`scripting`
+- **Slate 编辑器兼容** — 特别处理了 Slate 富文本编辑器的文本注入（通过 ClipboardEvent 模拟粘贴），避免 DOM 模型不一致的问题
+- **无外部依赖** — 纯原生 JavaScript，无需构建工具
+
+---
+
+## 致谢
+
+本项目基于 [AI-Dictation](https://github.com/peterkrueck/AI-Dictation) 开源项目改造，感谢原作者 Peter Krück。
+
+## 许可证
+
+[CC BY-NC 4.0](LICENSE.md) — 非商业用途可自由使用和修改，商业使用请联系原作者获取授权。
