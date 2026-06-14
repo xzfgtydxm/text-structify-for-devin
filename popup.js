@@ -30,14 +30,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   let activeTemplateId = '';
 
   async function loadConfigFile() {
-    try {
-      const url = chrome.runtime.getURL('config.default.json');
-      const resp = await fetch(url);
-      if (!resp.ok) return null;
-      return await resp.json();
-    } catch (e) {
-      return null;
+    // Try config.json first (user's private config with real keys),
+    // then fall back to config.default.json (template)
+    for (const filename of ['config.json', 'config.default.json']) {
+      try {
+        const url = chrome.runtime.getURL(filename);
+        const resp = await fetch(url);
+        if (!resp.ok) continue;
+        return await resp.json();
+      } catch (e) {
+        continue;
+      }
     }
+    return null;
   }
 
   async function loadState() {
