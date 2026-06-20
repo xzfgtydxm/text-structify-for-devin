@@ -10,7 +10,7 @@
     "scripting"
   ],
   "host_permissions": [
-    "<all_urls>"
+    "https://app.devin.ai/*", "https://*.devin.ai/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -30,7 +30,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["https://app.devin.ai/*", "https://*.devin.ai/*"],
       "js": ["content.js"],
       "run_at": "document_idle"
     }
